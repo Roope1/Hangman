@@ -8,9 +8,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 
-// TODO: guessed letters list
-
-
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -35,6 +32,7 @@ public class Main {
         // Creating a char array the length of the word to guess
         char[] correct = new char[wordToGuess.length()];
         char[] guessed = new char[wordToGuess.length()];
+        List<Character> usedLetters = new ArrayList<Character>();
 
         // Initializing both arrays
         for (int i = 0; i < wordToGuess.length(); i++){
@@ -76,12 +74,12 @@ public class Main {
             }
 
             gameWon = true;
-
+            System.out.printf("%nUsed letters: %s%n", usedLetters);
             for (char ch : guessed){
                 System.out.print(ch);
             }
 
-            System.out.printf(" (word length %s)%n%n", wordToGuess.length());
+            System.out.printf(" (word length %s)%n", wordToGuess.length());
             System.out.printf("You have %s strikes (10 ends the game).%n", strikes);
             System.out.print("Your guess: ");
             String guessedString = guess.nextLine();
@@ -95,6 +93,7 @@ public class Main {
 
             char playerGuess = guessedString.charAt(0);
             char[] preCheckGuessed = guessed.clone();
+
             for(int i = 0; i < wordToGuess.length(); i++){
                 if (checkGuess(playerGuess,correct[i])){
                    guessed = revealCharacter(guessed, playerGuess, i);
@@ -112,6 +111,7 @@ public class Main {
                 strikes++;
             }
             addStrike = true;
+            usedLetters.add(playerGuess);
         }
         System.out.println("Thank you for playing.");
     }
