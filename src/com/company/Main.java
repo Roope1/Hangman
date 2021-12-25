@@ -9,7 +9,7 @@ import java.util.Locale;
 import java.util.Scanner;
 
 // TODO: guessed letters list
-// TODO: error handling if no letter is guessed (empty)
+
 
 
 public class Main {
@@ -87,6 +87,12 @@ public class Main {
             String guessedString = guess.nextLine();
             guessedString = guessedString.toLowerCase(Locale.ROOT);
             // change player guess from string to character (takes only the first character)
+
+            if(guessedString.length() < 1){
+                System.out.println("Please enter a character");
+                continue;
+            }
+
             char playerGuess = guessedString.charAt(0);
             char[] preCheckGuessed = guessed.clone();
             for(int i = 0; i < wordToGuess.length(); i++){
